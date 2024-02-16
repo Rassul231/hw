@@ -1,0 +1,74 @@
+package com.service;
+import java.sql.*;
+import java.util.Scanner;
+
+public class Users {
+    private String login;
+    private int balance;
+
+    public Users(String login, String password, int balance) {
+        this.login = login;
+        this.balance = balance;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    protected static void Login(String login, String password) {
+        String sql = "SELECT \"User_name\", \"Password\", \"Balance\" FROM public.\"Users\" WHERE \"User_name\" = ? AND \"Password\" = ?;";
+        try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/edu_reserve_db", "postgres", "2006");
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, login);
+                pstmt.setString(2, password);
+                ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int balance = rs.getInt("Balance");
+                System.out.println("Balance: " + balance);
+            }
+            else {
+                System.out.println("Login failed,try again");
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("Login:");
+                String Login = scanner.next();
+                System.out.print("Password:");
+                String Password = scanner.next();
+                Users.Login(Login, Password);
+            }
+        } catch (SQLException e) {
+            System.out.println("Connection error: " + e.getMessage());
+        }
+    }
+    protected static void Rest(String login) {
+        String sql = "SELECT \"Balance\" FROM public.\"Users\" WHERE \"User_name\" = ?;";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/edu_reserve_db", "postgres", "2006");
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             pstmt.setString(1, login);
+             ResultSet rs = pstmt.executeQuery();
+             if(rs.next()){
+                    int balance = rs.getInt("Balance");
+                    int newBalance = balance - 20;
+                    String updateSql = "UPDATE public.\"Users\" SET \"Balance\" = ? WHERE \"User_name\" = ?;";
+                    try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                        updateStmt.setInt(1, newBalance);
+                        updateStmt.setString(2, login);
+                        updateStmt.executeUpdate();
+                        System.out.println("Balance deducted,Your");
+                    }
+                    catch (SQLException e){System.out.println("Connection error: " + e.getMessage());
+                    }
+                }
+             else {
+                    System.out.println("Balance does not enough");
+             }
+        } catch (SQLException e) {
+            System.out.println("Connection error: " + e.getMessage());
+        }
+    }
+
+}
