@@ -1,10 +1,9 @@
 package com.service;
 
-public class Student extends Peoples {
+public class Student extends Peoples implements Position {
     private float gpa;
     private String University;
-
-    public Student(int id, String name, String surname, boolean gender, float gpa, String University, int phone,String Address) {
+    public Student(int id, String name, String surname, boolean gender, float gpa, String University, long phone, String Address) {
         super(id, name, surname, gender, phone,Address);
         this.gpa = gpa;
         this.University = University;
