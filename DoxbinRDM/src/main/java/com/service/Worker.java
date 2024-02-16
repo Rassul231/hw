@@ -1,12 +1,12 @@
 package com.service;
 
-public class Worker extends Peoples{
+public class Worker extends Peoples implements Position{
     private String Occupation;
     private final int Salary;
     private String Education;
     private boolean Married;
 
-    public Worker(int id, String name, String surname, boolean gender, int phone, int Salary,String Occupation,String Education,boolean Married,String Address) {
+    public Worker(int id, String name, String surname, boolean gender, long phone, int Salary, String Occupation, String Education, boolean Married, String Address) {
         super(id, name, surname, gender,phone,Address);
         this.Salary = Salary;
         this.Occupation = Occupation;
