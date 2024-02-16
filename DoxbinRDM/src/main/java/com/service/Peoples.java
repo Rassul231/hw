@@ -1,13 +1,13 @@
 package com.service;
-public class Peoples {
+public class Peoples implements Position {
     private int id;
     private String name;
     private String surname;
     private boolean gender;
-    private int phone;
+    private long phone;
     private String Address;
 
-    public Peoples(int id, String name, String surname, boolean gender, int phone, String Address) {
+    public Peoples(int id, String name, String surname, boolean gender, long phone, String Address) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -28,7 +28,7 @@ public class Peoples {
         return name;
     }
 
-    public int getPhone() {
+    public long getPhone() {
         return phone;
     }
 
