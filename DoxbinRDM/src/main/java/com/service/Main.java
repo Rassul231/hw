@@ -5,14 +5,16 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         scanner.useLocale(Locale.US);
-        System.out.println("Do you want to Register or login?");
+        while(true){
+        System.out.print("Do you want to Register or login?");
         String action = scanner.nextLine();
         if (action.equalsIgnoreCase("register")) {
             System.out.print("Creat a login:");
             String login = scanner.nextLine();
             System.out.print("Creat a password:");
             String password = scanner.nextLine();
-            registration.reg(login,password);
+            registration.reg(login,password); // Calling "reg" by login and password
+            System.out.println();
         } else if (action.equalsIgnoreCase("login")) {
             System.out.print("Login:");
             String Login = scanner.nextLine();
@@ -23,11 +25,9 @@ public class Main {
             System.out.println("If want find information about someone write 'show'");
             String num = scanner.nextLine();
             if ((num.toLowerCase()).equals("show")) {
-                System.out.println("Remaining of your balance:");
-                Users.Rest(Login);
-                Users.Login(Login, Password);
+                Users.Rest(Login,Password);
                 System.out.print("Pleas write number:");
-                int n = scanner.nextInt();
+                Long n = scanner.nextLong();
                 byNumber number = new byNumber();
                 number.Find(n);
             } else if (num.toLowerCase().equals("add")) {
@@ -113,9 +113,10 @@ public class Main {
                             byNumber number = new byNumber();
                             number.Add(Name, Surname, Gender, Phone, 0, null, null, 0.0F, Education, Married, Address);
                         }
+                        }
                     }
                 }
-            }
+        }
         }
     }
 }
