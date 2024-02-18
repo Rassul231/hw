@@ -1,8 +1,13 @@
 package com.service;
 
-public class Worker extends Peoples implements Position{
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Worker extends Peoples {
     private String Occupation;
-    private final int Salary;
+    private int Salary;
     private String Education;
     private boolean Married;
 
@@ -13,24 +18,18 @@ public class Worker extends Peoples implements Position{
         this.Education = Education;
         this.Married = Married;
     }
-    public String getOccupation() {
-        return Occupation;
-    }
 
-    public String getPosition(){
+    @Override
+    public String getPosition() {
         return getOccupation();
     }
-    public String getEducation() {
-        return Education;
-    }
+
     @Override
     public String toString() {
-        return   super.toString() + '\n' +
-                "Occupation:'" + getPosition() + '\n' +
-                "Salary:" + Salary + '\n'+
-                "Education:'" + Education + '\n' +
-                "Married:" + (Married ? "No":"Yes")+"\n"
-                + "Education:" + getEducation();
-
+        return super.toString() + "\n" +
+                "Occupation: " + getOccupation() + "\n" +
+                "Salary: " + getSalary() + "\n" +
+                "Education: " + getEducation() + "\n" +
+                "Married: " + (isMarried() ? "Yes" : "No");
     }
 }
