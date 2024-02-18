@@ -9,7 +9,7 @@ public class byNumber {
 
     ArrayList<Peoples> peoples = new ArrayList<>();
 
-    protected void Find(int n) {
+    protected void Find(Long n) {// Method "Find" using to find person from DataBase by phone number
         String sql = "SELECT id,name, surname, gender, phone, \"Salary\", \"Occupation\", \"University\", \"Gpa\", \"Education\", \"Married\",\"Address\" FROM public.\"Peoples\" WHERE phone = ?;";
         try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/edu_reserve_db", "postgres", "2006");
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -29,13 +29,13 @@ public class byNumber {
                 Boolean Married = rs.getBoolean("Married");
                 String Address = rs.getString("Address");
                 Peoples Peoples;
-                if (University != null) {
+                if (University != null) {// If person has University does he study it mean that person is student
                         Peoples = new Student(id, name, surname, gender, gpa, University, phone,Address);
                         peoples.add(Peoples);
-                } else if (Occupation != null) {
+                } else if (Occupation != null) {// If person has University where he studies it mean that person is student
                         Peoples = new Worker(id, name, surname, gender, phone, Salary, Occupation,Education,Married,Address);
                         peoples.add(Peoples);
-                } else {
+                } else { // If he has not anything he is just people without University and Work
                         Peoples = new Peoples(id, name, surname, gender, phone,Address);
                         peoples.add(Peoples);
                 }
@@ -50,7 +50,7 @@ public class byNumber {
         }
 
     }
-
+    // Method "Add" using to add some persons in DataBase
     protected void Add(String Name,String Surname,boolean Gender,long Phone,int Salary,String Occupation,String University,Float Gpa,String Education,Boolean Married,String Address) {
         String sql = "INSERT INTO public.\"Peoples\" (name, surname, gender, phone, \"Salary\", \"Occupation\", \"University\", \"Gpa\",\"Education\",\"Married\",\"Address\") VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?);";
         try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/edu_reserve_db", "postgres", "2006");
@@ -66,7 +66,7 @@ public class byNumber {
                 stmt.setString(9,Education);
                 stmt.setBoolean(10,Married);
                 stmt.setString(11,Address);
-                stmt.executeUpdate();
+                stmt.executeUpdate();// Confirm changes
         }
         catch (SQLException e) {
             System.out.println("Connection error: " + e.getMessage());
@@ -74,4 +74,3 @@ public class byNumber {
 
     }
 }
-
