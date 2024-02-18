@@ -1,6 +1,11 @@
 package com.service;
 
-public class Student extends Peoples implements Position {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Student extends Peoples {
     private float gpa;
     private String University;
     public Student(int id, String name, String surname, boolean gender, float gpa, String University, long phone, String Address) {
@@ -8,14 +13,7 @@ public class Student extends Peoples implements Position {
         this.gpa = gpa;
         this.University = University;
     }
-
-    public String getUniversity() {
-        return University;
-    }
-
-    public float getGpa() {
-        return gpa;
-    }
+    @Override
     public String getPosition(){
         return "Student";
     }
@@ -24,6 +22,6 @@ public class Student extends Peoples implements Position {
     public String toString() {
         return super.toString() + "\n" +
                 "GPA: " + getGpa() + "\n" +
-                "University:" + getUniversity();
+                "University: " + getUniversity();
     }
 }
