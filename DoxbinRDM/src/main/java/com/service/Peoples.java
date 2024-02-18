@@ -1,4 +1,9 @@
 package com.service;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Peoples implements Position {
     private int id;
     private String name;
@@ -6,7 +11,6 @@ public class Peoples implements Position {
     private boolean gender;
     private long phone;
     private String Address;
-
     public Peoples(int id, String name, String surname, boolean gender, long phone, String Address) {
         this.id = id;
         this.name = name;
@@ -15,35 +19,21 @@ public class Peoples implements Position {
         this.phone = phone;
         this.Address = Address;
     }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public long getPhone() {
-        return phone;
-    }
-
     public String[] FullAddress(String Address) {
-        String[] parts = Address.split(",");
-        return parts;
+        if (Address != null) {
+            return Address.split(",");
+        } else {
+            return new String[]{null, null, null};
+        }
     }
 
-    public String getPosition(){
-        return "Do not has job";
+    public String getPosition() {
+        return "Does not have a job";
     }
 
     @Override
     public String toString() {
-        return id + ": " + name + " " + surname + " - " + (gender ? "man" : "woman") + "\n"
-                + getPosition() + "\n" +"ADDRESS:"+ "\n    City:" + FullAddress(Address)[0] + "\n    Street:" + FullAddress(Address)[1] +"\n    Flat:" + FullAddress(Address)[2] ;
+        return getId() + ": " + getName() + " " + getSurname() + " - " + (gender ? "man" : "woman") + "\n"
+                + getPosition() + "\n" + "Address:" + "\n    City:" + FullAddress(Address)[0] + "\n    Street:" + FullAddress(Address)[1] + "\n    Flat:" + FullAddress(Address)[2];
     }
 }
