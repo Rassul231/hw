@@ -4,16 +4,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 public class registration{
+    // Method "Reg" using to add New Users in DATABASE
     public static void reg(String login, String password) {
         String sql = "INSERT INTO public.\"Users\" (\"User_name\", \"Password\", \"Balance\") VALUES (?,?,40);";
         try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/edu_reserve_db", "postgres", "2006");
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1,login);
-            stmt.setString(2, password);
-            stmt.executeUpdate();
+            stmt.setString(2, password);// new User added by new login and password,and default has 40 balance
+            stmt.executeUpdate();// Confirm changes
             System.out.print("Registration successful");
         } catch (SQLException e) {
             System.out.println("Connection error: " + e.getMessage());
         }
     }
 }
+
